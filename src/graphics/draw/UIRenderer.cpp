@@ -16,6 +16,10 @@
 #include "main.h"
 #include "mesh/Channels.h"
 #include "target_specific.h"
+
+// Custom 128x64 UI pieces; undefine either to fall back to the stock screen for bisecting.
+#define CUSTOM_HOME_SCREEN 1
+#define CUSTOM_BOOT_SPLASH 1
 #include <OLEDDisplay.h>
 #include <RTC.h>
 #include <cstring>
@@ -846,7 +850,7 @@ static void drawDeviceFocusedCompact(OLEDDisplay *display, int16_t x, int16_t y)
 // ****************************
 void UIRenderer::drawDeviceFocused(OLEDDisplay *display, OLEDDisplayUiState *state, int16_t x, int16_t y)
 {
-#if !defined(OLED_TINY) && !defined(USE_EINK)
+#if !defined(OLED_TINY) && !defined(USE_EINK) && CUSTOM_HOME_SCREEN
     if (currentResolution == ScreenResolution::Low) {
         drawDeviceFocusedCompact(display, x, y);
         return;
@@ -1200,7 +1204,7 @@ void UIRenderer::drawScreensaverOverlay(OLEDDisplay *display, OLEDDisplayUiState
  */
 void UIRenderer::drawIconScreen(const char *upperMsg, OLEDDisplay *display, OLEDDisplayUiState *state, int16_t x, int16_t y)
 {
-#if !defined(OLED_TINY) && !defined(USE_EINK)
+#if !defined(OLED_TINY) && !defined(USE_EINK) && CUSTOM_BOOT_SPLASH
     if (currentResolution == ScreenResolution::Low) {
         // Animated boot splash: octahedron morphs into a stick bug, then idles. Frame picked from uptime.
         uint32_t ms = millis();
