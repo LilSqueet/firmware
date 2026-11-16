@@ -18,7 +18,7 @@
 #include "target_specific.h"
 
 // Custom 128x64 UI pieces; undefine either to fall back to the stock screen for bisecting.
-#define CUSTOM_HOME_SCREEN 1
+#define CUSTOM_HOME_SCREEN 0
 #define CUSTOM_BOOT_SPLASH 1
 #include <OLEDDisplay.h>
 #include <RTC.h>
