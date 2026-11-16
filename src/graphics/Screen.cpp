@@ -99,6 +99,7 @@ namespace graphics
 
 // This means the *visible* area (sh1106 can address 132, but shows 128 for example)
 #define IDLE_FRAMERATE 1 // in fps
+#define BOOT_SPLASH_FRAMERATE 12
 #define COMPASS_ACTIVE_FRAMERATE 20
 
 // DEBUG
@@ -1007,7 +1008,8 @@ int32_t Screen::runOnce()
     // but we should only call setTargetFPS when framestate changes, because
     // otherwise that breaks animations.
 
-    uint32_t desiredFramerate = IDLE_FRAMERATE;
+    // Keep the boot splash animating; drop to idle once it is gone.
+    uint32_t desiredFramerate = showingBootScreen ? BOOT_SPLASH_FRAMERATE : IDLE_FRAMERATE;
 #if HAS_GPS && !defined(USE_EINK)
     if (showingNormalScreen && hasCompass) {
         const uint8_t currentFrame = ui->getUiState()->currentFrame;
